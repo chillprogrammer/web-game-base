@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js"
+import { ResourceManager } from './objects/resource-manager'
 
 const INITIAL_WIDTH = 960;
 const INITIAL_HEIGHT = 640;
@@ -6,6 +7,7 @@ const INITIAL_HEIGHT = 640;
 export class Game {
 
     private app: PIXI.Application;
+    private Resource_Manager: ResourceManager;
 
     constructor() { }
 
@@ -21,8 +23,45 @@ export class Game {
         //Initialize Pixi.js
         this.initializePixiJs();
 
+        this.initializeResources();
+
         //Create the game loop.
         this.app.ticker.add(delta => this.gameLoop(delta));
+    }
+
+    /**
+     * Creates the Pixi.js canvas, and adds it to the HTML document.
+     */
+    initializePixiJs() {
+        let type = "WebGL"
+        if (!PIXI.utils.isWebGLSupported()) {
+            type = "canvas"
+        }
+        PIXI.utils.skipHello();
+
+        //Create a Pixi Application
+        this.app = new PIXI.Application();
+
+        //Add the pixi.js canvas to the HTML document
+        document.body.appendChild(this.app.view);
+
+        // Force the onResizeEvent to occur.
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    initializeResources() {
+        this.Resource_Manager = new ResourceManager();
+        this.Resource_Manager.loadTexture("default.jpg");
+        let x = this.Resource_Manager.getTexture("default.jpg");
+        console.log(x);
+    }
+
+    /**
+     * The main game loop - with delta time parameter.
+     * @param delta the delta time between each frame
+     */
+    gameLoop(delta: number) {
+
     }
 
     /**
@@ -52,33 +91,4 @@ export class Game {
             this.app.renderer.resize(calculatedWidth, calculatedHeight);
         }
     }
-
-    /**
-     * Creates the Pixi.js canvas, and adds it to the HTML document.
-     */
-    initializePixiJs() {
-        let type = "WebGL"
-        if (!PIXI.utils.isWebGLSupported()) {
-            type = "canvas"
-        }
-        PIXI.utils.skipHello();
-
-        //Create a Pixi Application
-        this.app = new PIXI.Application();
-
-        //Add the pixi.js canvas to the HTML document
-        document.body.appendChild(this.app.view);
-
-        // Force the onResizeEvent to occur.
-        window.dispatchEvent(new Event('resize'));
-    }
-
-    /**
-     * The main game loop - with delta time parameter.
-     * @param delta the delta time between each frame
-     */
-    gameLoop(delta: number) {
-
-    }
-
 }

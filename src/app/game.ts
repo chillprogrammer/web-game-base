@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js"
-import { ResourceManager } from './objects/resource-manager'
+import { getServiceByClass } from './services/service-injector.module'
+import { ResourceManager } from './services/resource-manager/resource-manager.service'
 
 const INITIAL_WIDTH = 960;
 const INITIAL_HEIGHT = 640;
@@ -7,9 +8,11 @@ const INITIAL_HEIGHT = 640;
 export class Game {
 
     private app: PIXI.Application;
-    private Resource_Manager: ResourceManager;
+    private resourceManager: ResourceManager = getServiceByClass(ResourceManager);
 
-    constructor() { }
+    constructor() {
+
+    }
 
     /**
      * The initial function that runs for the Game object.
@@ -49,11 +52,27 @@ export class Game {
         window.dispatchEvent(new Event('resize'));
     }
 
+    /**
+     * This function loads any resources into memory.
+     */
     initializeResources() {
-        this.Resource_Manager = new ResourceManager();
-        this.Resource_Manager.loadTexture("default.jpg");
-        let x = this.Resource_Manager.getTexture("default.jpg");
-        console.log(x);
+        //this.Resource_Manager = // = new ResourceManager();
+        this.loadTextures();
+        this.loadSounds();
+    }
+
+    /**
+     * This function loads any textures into memory.
+     */
+    loadTextures() {
+        this.resourceManager.loadTextureIntoMemory("default.jpg");
+    }
+
+    /**
+    * This function loads any sounds into memory.
+    */
+    loadSounds() {
+
     }
 
     /**

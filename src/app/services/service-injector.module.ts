@@ -1,20 +1,23 @@
 import { ResourceManager } from './resource-manager/resource-manager.service'
 import { SoundManager } from './sound-manager/sound-manager.service';
 
-const module = {
-    serviceClasses: [ResourceManager, SoundManager],
-}
-let listOfServices: any = [];
-module.serviceClasses.forEach(element => {
-    listOfServices.push(new element());
-});
+// To add a new class as a service, simply add it's class name to this list.
+const imports = [ResourceManager, SoundManager];
+// To access the service from another file, call 'getServiceByClass(CLASS_NAME)'
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Do not touch any code below this line, unless you know what you are doing. //
+////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Returns the instantiated service object specified by class name.
- * @param classType The CLass of the injected service
+ * @param classType The Class of the injected service
  * @returns Returns the service if it exists. Returns undefined if the service does not exist.
  */
 export function getServiceByClass(classType: any) {
+
+    // Loops through list of instantiated services. If it exists, then it returns.
     for (let i = 0; i < listOfServices.length; ++i) {
         let service: any = listOfServices[i];
         if (classType.name === service.constructor.name) {
@@ -22,6 +25,12 @@ export function getServiceByClass(classType: any) {
         }
     }
 
-    // Service does not exist
+    // Service does not exist.
     return undefined;
 }
+
+// This creates & stores the list of instantiated services.
+let listOfServices: any = [];
+imports.forEach(element => {
+    listOfServices.push(new element());
+});

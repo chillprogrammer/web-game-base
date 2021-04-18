@@ -15,7 +15,13 @@ export class ResourceManager {
 
     private textureList: TextureObject[] = [];
 
-    constructor() { }
+    constructor() {
+        this.init();
+    }
+
+    private init() {
+
+    }
 
     /**
      * Loads a texture into memory to speed up getTexture() calls later.

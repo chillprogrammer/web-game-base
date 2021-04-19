@@ -29,7 +29,21 @@ export class TextureManager {
     }
 
     /**
-     * Returns a texture based on the image path provided. (from memory if already loaded, otherwise it loads from the disk).
+     * Removes a texture from memory (if it exists in memory).
+     * @param path the path of the image file to load.
+     */
+    removeTextureFromMemory(path: string): void {
+        for (let i = 0; i < this.textureList.length; ++i) {
+            let element = this.textureList[i];
+            if (element.path === path) {
+                this.textureList.splice(i, 1)
+                return;
+            }
+        }
+    }
+
+    /**
+     * Returns a texture based on the image path provided. (from memory if already loaded, otherwise it loads from the disk, and adds to memory).
      * @param path the path to the image used as a texture
      * @returns a PIXI.Texture, or null if unavailable.
      */

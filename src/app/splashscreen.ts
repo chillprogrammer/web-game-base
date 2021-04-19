@@ -16,7 +16,6 @@ export class SplashScreen {
     private init() {
         this.pixiManager = getServiceByClass(PixiManager);
         this.textureManager = getServiceByClass(TextureManager);
-        //console.log(this.pixiManager)
         this.app = this.pixiManager.getApp();
         this.sprite = new PIXI.Sprite(this.textureManager.getTexture("splashscreen.png"));
         this.sprite.scale.set(1, 1);
@@ -28,17 +27,15 @@ export class SplashScreen {
 
             // Splash screen is hidden, resolve the promise.
             setTimeout(() => {
-                this.app.stage.removeChild(this.sprite);
+                this.cleanUp();
                 resolve(1);
             }, DISPLAY_TIME)
         })
     }
 
-    hide() {
-
-    }
-
     cleanUp() {
-
+        this.app.stage.removeChild(this.sprite);
+        this.sprite = null;
+        this.textureManager.removeTextureFromMemory("splashscreen.png");
     }
 }

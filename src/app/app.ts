@@ -8,10 +8,11 @@ export class App {
      */
     init() {
         // Displays the splash screen for time specified in ms.
-        // After time passes, then game initializes. Splashscreen hides automatically.
-        const splashScreen = new SplashScreen();
-        splashScreen.display(5000).then(() => {
+        // After the time passes, the game initializes. Splashscreen hides automatically.
+        let splashScreen = new SplashScreen();
+        splashScreen.display(2000).then(() => {
+            splashScreen = null;
             new Game();
-        })
+        });
     }
 }

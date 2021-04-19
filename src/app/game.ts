@@ -12,7 +12,6 @@ export class Game {
     constructor() {
         this.textureManager = getServiceByClass(TextureManager);
         this.pixiManager = getServiceByClass(PixiManager);
-        this.app = this.pixiManager.getApp();
 
         this.init();
     }
@@ -22,6 +21,8 @@ export class Game {
      * Called from the App loader class.
      */
     init() {
+        this.app = this.pixiManager.getApp();
+        
         this.initializeResources();
 
         //Create the game loop.
@@ -32,7 +33,6 @@ export class Game {
      * This function loads any resources into memory.
      */
     initializeResources() {
-        //this.Resource_Manager = // = new ResourceManager();
         this.loadTextures();
         this.loadSounds();
     }

@@ -3,7 +3,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: './src/index.ts',
-    devtool: 'inline-source-map',
+    devtool: 'hidden-source-map',
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),

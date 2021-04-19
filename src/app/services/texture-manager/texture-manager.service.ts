@@ -7,11 +7,7 @@ interface TextureObject {
     texture: PIXI.Texture
 }
 
-export class ResourceManager {
-
-    x: number = 1;
-    y: number = 2;
-    z: string = "5";
+export class TextureManager {
 
     private textureList: TextureObject[] = [];
 

@@ -1,13 +1,17 @@
 import { Game } from "./game"
+import { SplashScreen } from "./splashscreen";
+
 export class App {
 
     /**
      * Initializes everything in the app.
      */
     init() {
-        // TODO Add splashscreen logic here.
-
-        let game = new Game();
-        game.init();
+        // Displays the splash screen for time specified in ms.
+        // After time passes, then game initializes. Splashscreen hides automatically.
+        const splashScreen = new SplashScreen();
+        splashScreen.display(5000).then(() => {
+            new Game();
+        })
     }
 }
